@@ -43,7 +43,7 @@ body {
   box-sizing: border-box;
 }
 .board {
-  max-width: 12rem;
+  max-width: 14rem;
   margin: 0 auto;
   border-radius: 0.12rem;
   padding: 0.18rem;
@@ -125,7 +125,7 @@ body {
 
 /* 列容器 - 核心自适应，小屏占满宽度 */
 .col {
-  flex: 1 1 2.6rem; /* 最小宽度2.6rem，小屏自动换行 */
+  flex: 1 1 2.6rem; /* 略增最小宽度，整体更宽 */
   display: flex;
   flex-direction: column;
   background: linear-gradient(180deg, rgba(8,30,60,0.12), rgba(8,30,60,0.05));
@@ -265,6 +265,9 @@ body {
   padding: 0.1rem;
   position: relative; /* 为SVG箭头定位做容器 */
   margin-top: -0.2rem; /* 缩短与上面三列的间距 */
+  width: calc(100% + 0.8rem);
+  margin-left: -0.4rem;
+  margin-right: -0.4rem;
 }
 .bottom-content {
   display: flex;
