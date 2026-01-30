@@ -14,13 +14,13 @@
 
 ```bash
 # 在项目根运行
-./bupt-api
+./dist/bupt-api
 ```
 
 默认端口为 `3001`，如需修改可设置环境变量：
 
 ```bash
-PORT=4000 ./bupt-api
+PORT=4000 ./dist/bupt-api
 ```
 
 > 若修改端口，请同步更新 `src/app.js` 中的 `apiBase`。
