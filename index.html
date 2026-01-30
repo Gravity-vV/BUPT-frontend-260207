@@ -14,7 +14,7 @@
 
         <div class="board-body">
 
-          <!-- Left column (独立，可单独定制) -->
+          
           <div class="col col-left">
             <div class="col-header">{{ headers[0] }}</div>
             <div class="col-inner">
@@ -44,7 +44,7 @@
             <div class="col-footer"></div>
           </div>
 
-          <!-- Center column (独立，可单独定制) -->
+          
           <div class="col col-center">
             <div class="col-header">{{ headers[1] }}</div>
             <div class="col-inner">
@@ -78,7 +78,7 @@
             <div class="col-footer"></div>
           </div>
 
-          <!-- Right column (独立，可单独定制) -->
+          
           <div class="col col-right">
             <div class="col-header">{{ headers[2] }}</div>
             <div class="col-inner">
@@ -98,7 +98,7 @@
           <div class="bottom-content">
             <div style="padding: 0 0.16rem; background: transparent;"></div>
             <div class="system-status-box">系<br>统<br>运<br>行<br>状<br>态</div>
-            <!-- 修复后的SVG箭头 -->
+            
             <svg class="chart-connector" width="100%" height="20px" viewBox="0 0 1200 20" preserveAspectRatio="none">
               <defs>
                 <marker id="arrowhead" markerWidth="3" markerHeight="3" 
@@ -106,36 +106,36 @@
                   <polygon points="0 0, 3 1.5, 0 3" />
                 </marker>
               </defs>
-              <!-- 调整坐标：连接两个chart的上方正中到右边文字框的上方正中 -->
-              <!-- 第一个箭头：从第一个chart到汇聚点 -->
-              <!-- 竖线（细线） -->
+              
+              
+              
               <path d="M 330 15 L 330 0" 
                     stroke="#409EFF" stroke-width="3" 
                     fill="none" 
                     stroke-linejoin="round" stroke-linecap="round"/>
-              <!-- 横线（粗线） -->
+              
               <path d="M 332 0 L 830 0" 
                     stroke="#409EFF" stroke-width="4" 
                     fill="none" 
                     stroke-linejoin="round" stroke-linecap="round"/>
-              <!-- 第二个箭头：从第二个chart到汇聚点 -->
-              <!-- 竖线（细线） -->
+              
+              
               <path d="M 780 15 L 780 0" 
                     stroke="#409EFF" stroke-width="3" 
                     fill="none" 
                     stroke-linejoin="round" stroke-linecap="round"/>
-              <!-- 横线（粗线） -->
+              
               <path d="M 830 0 L 830 0" 
                     stroke="#409EFF" stroke-width="4" 
                     fill="none" 
                     stroke-linejoin="round" stroke-linecap="round"/>
-              <!-- 主箭头：从汇聚点到右边文字框 -->
-              <!-- 横线（粗线） -->
+              
+              
               <path d="M 830 0 L 1070 0" 
                     stroke="#409EFF" stroke-width="4" 
                     fill="none" 
                     stroke-linejoin="round" stroke-linecap="round"/>
-              <!-- 竖线（细线） -->
+              
               <path d="M 1070 0 L 1070 15" 
                     stroke="#409EFF" stroke-width="4" 
                     fill="none" marker-end="url(#arrowhead)" 
@@ -156,7 +156,7 @@
           </div>
         </div>
         
-        <!-- 高亮框容器 -->
+        
         <div class="hl-boxes">
           <div class="hl-box left"></div>
           <div class="hl-box center"></div>

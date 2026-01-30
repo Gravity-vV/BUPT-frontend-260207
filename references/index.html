@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>小屏展示 + TPS Chart</title>
 
-  <!-- ECharts CDN（如果你机器不能访问外网，见文末“离线方案”） -->
+  
   <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 
   <style>
@@ -100,10 +100,10 @@
 
 <body>
   <div class="screen">
-    <!-- 上半：背景图 + 箭头动画（不想要动画就删掉 svg 这块） -->
+    
     <div class="visual">
       <svg class="overlay" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <!-- 示例箭头：你可以改 d 的坐标来换位置/方向 -->
+        
         <path
           d="M12 68 L88 45"
           fill="none"
@@ -113,7 +113,7 @@
       </svg>
     </div>
 
-    <!-- 下半：标题 + ECharts -->
+    
     <div class="content">
       <div class="meta">
         <h3>TPS 趋势</h3>

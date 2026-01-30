@@ -1,7 +1,7 @@
-/* 全局与背景 - 基础适配层：根字体动态vw，1rem=100px（1920屏），小屏兜底 */
+
 html {
-  font-size: calc(100vw / 19.2); /* 1920px屏幕 → 1rem=100px，等比缩放 */
-  background-color: #00122b; /* 兜底色 */
+  font-size: calc(100vw / 19.2); 
+  background-color: #00122b; 
 }
 
 
@@ -12,33 +12,25 @@ html, body, #app {
   color: #cfeeff;
   box-sizing: border-box;
 }
-* { box-sizing: inherit; } /* 全局继承盒模型，避免布局错乱 */
+* { box-sizing: inherit; } 
 
 body {
-  /* 修正：图层顺序 → 网格线（上层）、背景图（底层） */
-  /* background-image: 
-    repeating-linear-gradient(0deg, rgba(255,255,255,0.01) 0 0.01rem, transparent 0.01rem 0.4rem), 
-    repeating-linear-gradient(90deg, rgba(255,255,255,0.01) 0 0.01rem, transparent 0.01rem 0.4rem),
-    url("/assets/img/full_background.png"); */
-  /* background-size: 100% 104%;
-  background-position: center, center, center 10%; 
-  background-repeat: repeat, repeat, no-repeat; 
-  background-attachment: scroll; 
-  background-blend-mode: overlay;
-  min-height: 100vh; */
+  
+  
+  
 }
 
-/* 顶部大横幅 */
+
 .top-banner { display: none; }
 .banner-inner { max-width: 12rem; margin: 0 auto; }
 .banner-title { color: #fff; font-weight: 800; font-size: 0.28rem; }
 .banner-sub { color: rgba(200,240,255,0.8); margin-top: 0.04rem; }
 
-/* 仪表盘容器 - 核心自适应布局 */
+
 .board-wrap {
   padding: 0.26rem 0.4rem 0.4rem;
   width: 96%;
-  max-width: 22rem; /* 最大宽度等比缩放 */
+  max-width: 22rem; 
   margin: 0 auto;
   box-sizing: border-box;
 }
@@ -59,7 +51,7 @@ body {
 .title-wrap { background-image: none; background-color: transparent; }
 .title-wrap:after { background: none; }
 
-/* 发光边框层 */
+
 .board::after {
   content: "";
   position: absolute;
@@ -71,7 +63,7 @@ body {
   opacity: 0.95;
 }
 
-/* 角落装饰（简化的发光几何） */
+
 .corner {
   position: absolute;
   width: 0.36rem;
@@ -93,14 +85,14 @@ body {
 .corner-bl { left: 0.06rem; bottom: 0.06rem; transform: scaleY(-1); }
 .corner-br { right: 0.06rem; bottom: 0.06rem; transform: scaleX(-1) scaleY(-1); }
 
-/* 角落微动画 */
+
 @keyframes cornerPulse {
   0% { opacity: .6; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.06); }
   100% { opacity: .6; transform: scale(1); }
 }
 
-/* 小发光条/芯片区 */
+
 .board .mini-bars { position: absolute; right: 0.18rem; top: 0.12rem; display: flex; gap: 0.06rem; }
 .board .mini-bars span {
   width: 0.24rem;
@@ -120,12 +112,12 @@ body {
   border: 0.01rem solid rgba(0,200,255,0.12);
 }
 
-/* 三列布局 - 弹性自适应，小屏自动换行 */
+
 .board-body { display: flex; gap: 0.1rem; margin-top: 0.12rem; flex-wrap: wrap; }
 
-/* 列容器 - 核心自适应，小屏占满宽度 */
+
 .col {
-  flex: 1 1 2.6rem; /* 略增最小宽度，整体更宽 */
+  flex: 1 1 2.6rem; 
   display: flex;
   flex-direction: column;
   background: linear-gradient(180deg, rgba(8,30,60,0.12), rgba(8,30,60,0.05));
@@ -134,7 +126,7 @@ body {
   overflow: hidden;
   padding: 0.08rem;
 }
-/* 列头部 - 科技感样式等比缩放 */
+
 .col-header {
   padding: 0.1rem 0.1rem;
   color: #e7fbff;
@@ -166,10 +158,10 @@ body {
   padding: 0.08rem;
   display: flex;
   flex-direction: column;
-  gap: 0.06rem; /* 统一子元素间距，美观且可控 */
-  justify-content: flex-start; /* 元素向上对齐，无冗余留白 */
+  gap: 0.06rem; 
+  justify-content: flex-start; 
 }
-/* 列内标题 - 科技感样式等比缩放 */
+
 .col-inner .inner-box .inner-title {
   padding: 0.05rem 0.12rem;
   font-size: 0.22rem;
@@ -215,10 +207,10 @@ body {
   border-top: 0.01rem solid rgba(0,140,210,0.04);
 }
 
-/* Vue隐藏指令 */
+
 [v-cloak] { display: none; }
 
-/* 高亮框 - 等比缩放定位和尺寸 */
+
 .board .hl-boxes {
   position: absolute;
   inset: 0.48rem 0.2rem 0.4rem 0.2rem;
@@ -239,14 +231,14 @@ body {
 .board .hl-box.right { left: calc(66.666% + 0.26rem); top: 0.72rem; bottom: 0.6rem; width: calc(33.333% - 0.12rem); }
 .board .hl-box.bottom { left: 0.2rem; right: 0.2rem; height: 0.84rem; bottom: 0.12rem; top: auto; }
 
-/* 高亮框动画 */
+
 @keyframes hlGlow {
   0% { box-shadow: 0 0 0.2rem rgba(6,212,255,0.06), inset 0 0 0.08rem rgba(6,212,255,0.03); }
   50% { box-shadow: 0 0 0.3rem rgba(6,212,255,0.12), inset 0 0 0.12rem rgba(6,212,255,0.05); }
   100% { box-shadow: 0 0 0.2rem rgba(6,212,255,0.06), inset 0 0 0.08rem rgba(6,212,255,0.03); }
 }
 
-/* 小表格 */
+
 .mini-table { width: 100%; color: #9ee9ff; border-collapse: collapse; }
 .mini-table td {
   padding: 0.06rem 0.08rem;
@@ -254,7 +246,7 @@ body {
   font-size: 0.12rem;
 }
 
-/* 底部面板 - 图表区核心自适应 */
+
 .board-bottom {
   height: 2.6rem;
   background-image: url('/assets/img/bg.9f67b30b.png');
@@ -263,8 +255,8 @@ body {
   border-radius: 0.04rem;
   box-shadow: inset 0 0.24rem 0.48rem rgba(0,0,0,0.45);
   padding: 0.1rem;
-  position: relative; /* 为SVG箭头定位做容器 */
-  margin-top: -0.2rem; /* 缩短与上面三列的间距 */
+  position: relative; 
+  margin-top: -0.2rem; 
   width: calc(100% + 0.8rem);
   margin-left: -0.4rem;
   margin-right: -0.4rem;
@@ -275,7 +267,7 @@ body {
   gap: 0.1rem;
   height: 100%;
   position: relative;
-  flex-wrap: wrap; /* 小屏自动换行 */
+  flex-wrap: wrap; 
 }
 .chart-container {
   display: flex;
@@ -283,12 +275,12 @@ body {
   height: 100%;
   margin-top: 0.1rem;
   margin-bottom: 0.1rem;
-  flex: 1 1 4rem; /* 最小宽度4rem，小屏优先占满 */
+  flex: 1 1 4rem; 
   align-items: center;
   justify-content: space-between;
   padding: 0.2rem 0.1rem;
 }
-/* SVG箭头 - 自适应定位，小屏隐藏避免挤压 */
+
 .chart-connector {
   position: absolute;
   top: 0;
@@ -299,10 +291,10 @@ body {
   height: 0.2rem;
 }
 @media (max-width: 1200px) {
-  .chart-connector { display: none; } /* 平板/小屏隐藏箭头，避免布局挤压 */
+  .chart-connector { display: none; } 
 }
 .chart-wrapper {
-  flex: 1 1 1.5rem; /* 图表最小宽度1.5rem，等比缩放 */
+  flex: 1 1 1.5rem; 
   height: 2.5rem;
   display: flex;
   flex-direction: column;
@@ -327,7 +319,7 @@ body {
   position: relative;
 }
 
-/* 系统状态盒 - 科技感样式等比缩放，小屏自适应 */
+
 .system-status-box {
   padding: 0.15rem 0.12rem;
   border-radius: 0.06rem;
@@ -347,9 +339,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 1rem; /* 小屏最小宽度，避免挤压 */
+  min-width: 1rem; 
 }
-/* 右侧状态盒 */
+
 .status-box {
   padding: 0.08rem 0.12rem;
   border-radius: 0.06rem;
@@ -372,7 +364,7 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-width: 1.5rem; /* 小屏最小宽度 */
+  min-width: 1.5rem; 
 }
 .status-box .highlight {
   color: #2ddafd;
@@ -381,7 +373,7 @@ body {
 }
 .status-box .status-text { display: inline-block; text-align: center; }
 
-/* 右侧列专属样式 */
+
 .col-right .col-inner { align-items: stretch; }
 .col-right .inner-box {
   height: 100%;
@@ -396,11 +388,11 @@ body {
 }
 .col-right .inner-diagram {
   flex: 1 1 0%;
-  min-height: 0;                 /* ⭐关键 */
+  min-height: 0;                 
   display: flex;
-  align-items: center;           /* 垂直居中 */
-  justify-content: center;       /* 水平居中 */
-  overflow: hidden;              /* 不影响外框 */
+  align-items: center;           
+  justify-content: center;       
+  overflow: hidden;              
 }
 .col-right .inner-diagram img {
   max-width: 100%;
@@ -411,7 +403,7 @@ body {
 }
 
 
-/* 左侧数据面板 - 等比缩放，网格布局自适应 */
+
 .left-data {
   margin-top: auto;
   width: 100%;
@@ -445,7 +437,7 @@ body {
 }
 .left-item:nth-of-type(even) { background: rgba(6,60,110,0.35); }
 
-/* 中间数据面板 - 等比缩放，网格布局自适应 */
+
 .center-data {
   margin-top: auto;
   width: 100%;
@@ -478,7 +470,7 @@ body {
   font-weight: 400;
 }
 
-/* 数据淡入淡出动画 - 等比缩放位移 */
+
 .data-fade-enter-active, .data-fade-leave-active {
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
@@ -487,7 +479,7 @@ body {
   transform: translateY(0.06rem);
 }
 
-/* 媒体查询 - 平板/手机屏细节适配 */
+
 @media (max-width: 1100px) {
   .col-inner { padding: 0.18rem; }
   .col-illustration { height: 2.4rem; }
@@ -500,17 +492,17 @@ body {
   .title-wrap .title { font-size: 0.3rem; }
   .col-header { font-size: 0.25rem; }
   .inner-title { font-size: 0.22rem !important; }
-  .hl-box { display: none; } /* 手机屏隐藏高亮框，简化视觉 */
+  .hl-box { display: none; } 
 }
 
-/* Dialog 中图表颜色 */
+
 #chart { background: linear-gradient(180deg, #021f38, #02112b); }
 
-/* 小交互 */
+
 .el-button { border-radius: 0.03rem; }
 .dialog-footer .el-button { background: transparent; }
 
-/* 视觉装饰角落（简化版） */
+
 .board:after {
   content: "";
   position: absolute;

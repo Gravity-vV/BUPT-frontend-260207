@@ -49,11 +49,11 @@ document.addEventListener('DOMContentLoaded', function(){
         })
       },
       initCharts(){
-        // 初始化 TPS 折线图
+        
         var tpsChart = echarts.init(document.getElementById('tps-chart'));
         
-        // 参照references样式的TPS图表
-        // 生成当前时间以及往前推11个10分钟的时间点
+        
+        
         const generateTimeData = () => {
           const times = [];
           const now = new Date();
@@ -68,11 +68,11 @@ document.addEventListener('DOMContentLoaded', function(){
         const tpsXData = generateTimeData();
         const tpsYData = [11550, 11620, 11580, 11600, 11750, 11620, 11700, 11450, 11600, 11700, 11750, 11620];
         
-        // 计算TPS数据范围和上下限
+        
         const tpsMin = 8000;
         const tpsMax = 13000;
         const tpsRange = tpsMax - tpsMin;
-        const tpsPadding = tpsRange * 0.1; // 0.1倍的数据范围作为padding，总范围为1.2倍
+        const tpsPadding = tpsRange * 0.1; 
         const tpsYMin = tpsMin - tpsPadding;
         const tpsYMax = tpsMax + tpsPadding;
         
@@ -100,9 +100,9 @@ document.addEventListener('DOMContentLoaded', function(){
             type: "category",
             boundaryGap: false,
             data: tpsXData,
-            //name: "时间",
-            //nameLocation: "bottom",
-            //nameTextStyle: { color: "#00FFF6", fontSize: 12 },
+            
+            
+            
             axisLabel: { color: "#C4CAF3", fontSize: 12 },
             axisLine: { show: true, lineStyle: { color: "rgba(1, 202, 251, 0.4)", width: 1 } },
             splitLine: {
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function(){
             name: "TPS",
             min: tpsMin,
             max: tpsMax,
-            interval: 1000,//function(max, min) { return Math.ceil((max - min) / 4); },
+            interval: 1000,
             nameLocation: "middle",
             nameTextStyle: { color: "#00FFF6", fontSize: 12, rotate: 0 },
             axisLabel: { color: "#C4CAF3", fontSize: 12 },
@@ -135,18 +135,18 @@ document.addEventListener('DOMContentLoaded', function(){
           }]
         });
 
-        // 初始化链生长率折线图
+        
         var growthChart = echarts.init(document.getElementById('growth-chart'));
         
-        // 参照references样式的链生长率图表
+        
         const growthXData = generateTimeData();
         const growthYData = [123, 125, 122, 124, 126, 124, 125, 123, 121, 127, 130, 127];
         
-        // 计算链生长率数据范围和上下限
+        
         const growthMin = 90;
         const growthMax = 140;
         const growthRange = growthMax - growthMin;
-        const growthPadding = growthRange * 0.1; // 0.1倍的数据范围作为padding，总范围为1.2倍
+        const growthPadding = growthRange * 0.1; 
         const growthYMin = growthMin - growthPadding;
         const growthYMax = growthMax + growthPadding;
         
@@ -174,9 +174,9 @@ document.addEventListener('DOMContentLoaded', function(){
             type: "category",
             boundaryGap: false,
             data: growthXData,
-            //name: "时间",
-            //nameLocation: "bottom",
-            //nameTextStyle: { color: "#00FFF6", fontSize: 12 },
+            
+            
+            
             axisLabel: { color: "#C4CAF3", fontSize: 12 },
             axisLine: { show: true, lineStyle: { color: "rgba(1, 202, 251, 0.4)", width: 1 } },
             splitLine: {
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function(){
             name: "出块时间 (ms)",
             min: growthMin,
             max: growthMax,
-            interval: 10,//function(max, min) { return Math.ceil((max - min) / 4); },
+            interval: 10,
             nameLocation: "middle",
             nameTextStyle: { color: "#00FFF6", fontSize: 12, rotate: 0 },
             axisLabel: { color: "#C4CAF3", fontSize: 12 },
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function(){
           }]
         });
 
-        // 响应式调整
+        
         window.addEventListener('resize', function(){
           tpsChart.resize();
           growthChart.resize();
