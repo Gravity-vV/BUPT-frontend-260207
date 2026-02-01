@@ -18,13 +18,20 @@ document.addEventListener('DOMContentLoaded', function(){
         centerGifDurationMs: 12020,
         centerGifIntervalId: null,
         centerGifTickRunning: false,
-        apiBase: ''
+        apiBase: '',
+        tpsChart: null,
+        growthChart: null,
+        tpsTimes: [],
+        tpsValues: [],
+        growthValues: [],
+        chartIntervalId: null
       }
     },
     mounted(){
       this.initCharts();
       this.startGifLoop();
       this.startCenterGifLoop();
+      this.startChartPolling();
     },
     methods:{
       togglePreview(){ this.collapsed = !this.collapsed },
@@ -49,34 +56,14 @@ document.addEventListener('DOMContentLoaded', function(){
         })
       },
       initCharts(){
-        
-        var tpsChart = echarts.init(document.getElementById('tps-chart'));
-        
-        
-        
-        const generateTimeData = () => {
-          const times = [];
-          const now = new Date();
-          for (let i = 11; i >= 0; i--) {
-            const time = new Date(now.getTime() - i * 10 * 60 * 1000);
-            const hour = time.getHours().toString().padStart(2, '0');
-            const minute = time.getMinutes().toString().padStart(2, '0');
-            times.push(`${hour}:${minute}`);
-          }
-          return times;
-        };
-        const tpsXData = generateTimeData();
-        const tpsYData = [11550, 11620, 11580, 11600, 11750, 11620, 11700, 11450, 11600, 11700, 11750, 11620];
-        
-        
-        const tpsMin = 8000;
-        const tpsMax = 13000;
-        const tpsRange = tpsMax - tpsMin;
-        const tpsPadding = tpsRange * 0.1; 
-        const tpsYMin = tpsMin - tpsPadding;
-        const tpsYMax = tpsMax + tpsPadding;
-        
-        tpsChart.setOption({
+        this.tpsChart = echarts.init(document.getElementById('tps-chart'));
+        this.growthChart = echarts.init(document.getElementById('growth-chart'));
+
+        this.tpsTimes = [];
+        this.tpsValues = [];
+        this.growthValues = [];
+
+        this.tpsChart.setOption({
           backgroundColor: 'transparent',
           title: {
             text: 'TPS曲线',
@@ -99,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function(){
           xAxis: {
             type: "category",
             boundaryGap: false,
-            data: tpsXData,
+            data: this.tpsTimes,
             
             
             
@@ -112,9 +99,9 @@ document.addEventListener('DOMContentLoaded', function(){
           yAxis: {
             type: "value",
             name: "TPS",
-            min: tpsMin,
-            max: tpsMax,
-            interval: 1000,
+            min: 0,
+            max: 30,
+            interval: 5,
             nameLocation: "middle",
             nameTextStyle: { color: "#00FFF6", fontSize: 12, rotate: 0 },
             axisLabel: { color: "#C4CAF3", fontSize: 12 },
@@ -131,26 +118,11 @@ document.addEventListener('DOMContentLoaded', function(){
             showSymbol: false,
             clip: true,
             lineStyle: { width: 2, color: "#3ae6d5" },
-            data: tpsYData
+            data: this.tpsValues
           }]
         });
 
-        
-        var growthChart = echarts.init(document.getElementById('growth-chart'));
-        
-        
-        const growthXData = generateTimeData();
-        const growthYData = [123, 125, 122, 124, 126, 124, 125, 123, 121, 127, 130, 127];
-        
-        
-        const growthMin = 90;
-        const growthMax = 140;
-        const growthRange = growthMax - growthMin;
-        const growthPadding = growthRange * 0.1; 
-        const growthYMin = growthMin - growthPadding;
-        const growthYMax = growthMax + growthPadding;
-        
-        growthChart.setOption({
+        this.growthChart.setOption({
           backgroundColor: 'transparent',
           title: {
             text: '链生长率',
@@ -173,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function(){
           xAxis: {
             type: "category",
             boundaryGap: false,
-            data: growthXData,
+            data: this.tpsTimes,
             
             
             
@@ -186,8 +158,8 @@ document.addEventListener('DOMContentLoaded', function(){
           yAxis: {
             type: "value",
             name: "出块时间 (ms)",
-            min: growthMin,
-            max: growthMax,
+            min: 90,
+            max: 140,
             interval: 10,
             nameLocation: "middle",
             nameTextStyle: { color: "#00FFF6", fontSize: 12, rotate: 0 },
@@ -205,15 +177,53 @@ document.addEventListener('DOMContentLoaded', function(){
             showSymbol: false,
             clip: true,
             lineStyle: { width: 2, color: "#3ae6d5" },
-            data: growthYData
+            data: this.growthValues
           }]
         });
 
-        
-        window.addEventListener('resize', function(){
-          tpsChart.resize();
-          growthChart.resize();
+        window.addEventListener('resize', () => {
+          if (this.tpsChart) this.tpsChart.resize();
+          if (this.growthChart) this.growthChart.resize();
         });
+      },
+      startChartPolling(){
+        if (this.chartIntervalId) {
+          clearInterval(this.chartIntervalId);
+        }
+        this.fetchChartData();
+        this.chartIntervalId = setInterval(() => {
+          this.fetchChartData();
+        }, 3000);
+      },
+      async fetchChartData(){
+        try{
+          const [tpsResp, blockResp] = await Promise.all([
+            fetch(`${this.apiBase}/api/tps-series`, { cache: 'no-store' }),
+            fetch(`${this.apiBase}/api/block-time-series`, { cache: 'no-store' })
+          ]);
+          if (!tpsResp.ok || !blockResp.ok) throw new Error('HTTP error');
+          const tpsData = await tpsResp.json();
+          const blockData = await blockResp.json();
+
+          this.tpsTimes = tpsData.labels || [];
+          this.tpsValues = tpsData.values || [];
+          this.growthValues = blockData.values || [];
+
+          if (this.tpsChart) {
+            this.tpsChart.setOption({
+              xAxis: { data: this.tpsTimes },
+              series: [{ data: this.tpsValues }]
+            });
+          }
+          if (this.growthChart) {
+            this.growthChart.setOption({
+              xAxis: { data: this.tpsTimes },
+              series: [{ data: this.growthValues }]
+            });
+          }
+        }catch(err){
+          console.warn('[chart-data] fetch failed', err);
+        }
       },
       startGifLoop(){
         const img = document.getElementById('left-gif');
