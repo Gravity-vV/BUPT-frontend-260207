@@ -31,10 +31,10 @@ let currentGrowth = 126;
 
 const generateInitialData = () => {
   const now = new Date();
-  const dataPoints = 12;
+  const dataPoints = 36;
   
   for (let i = dataPoints - 1; i >= 0; i--) {
-    const time = new Date(now.getTime() - i * 10 * 1000);
+    const time = new Date(now.getTime() - i * 3 * 1000);
     const hour = time.getHours().toString().padStart(2, '0');
     const minute = time.getMinutes().toString().padStart(2, '0');
     const second = time.getSeconds().toString().padStart(2, '0');
@@ -71,7 +71,7 @@ const updateData = () => {
   tpsData.push({ time: timeStr, value: tpsValue });
   growthData.push({ time: timeStr, value: growthValue });
   
-  if (tpsData.length > 12) {
+  if (tpsData.length > 36) {
     tpsData.shift();
     growthData.shift();
   }
@@ -82,7 +82,7 @@ const updateData = () => {
 };
 
 generateInitialData();
-setInterval(updateData, 10000);
+setInterval(updateData, 3000);
 
 const server = http.createServer((req, res) => {
   if (req.method === 'OPTIONS') {

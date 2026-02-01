@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function(){
         centerRecordKey: '',
         centerGifDurationMs: 12020,
         centerGifIntervalId: null,
-        centerGifTickRunning: false,
+        centerGifTickRunning: false,         
         apiBase: 'http://localhost:3001'
       }
     },
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 axisLabel: { 
                   color: "#C4CAF3", 
                   fontSize: 12,
-                  interval: 2
+                  interval: 4
                 },
                 axisLine: { show: true, lineStyle: { color: "rgba(1, 202, 251, 0.4)", width: 1 } },
                 splitLine: { show: false }
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 axisLabel: { 
                   color: "#C4CAF3", 
                   fontSize: 12,
-                  interval: 2
+                  interval: 4
                 },
                 axisLine: { show: true, lineStyle: { color: "rgba(1, 202, 251, 0.4)", width: 1 } },
                 splitLine: { show: false }
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function(){
         };
         
         fetchTpsData();
-        setInterval(fetchTpsData, 10000);
+        setInterval(fetchTpsData, 3000);
         
         window.addEventListener('resize', function(){
           tpsChart.resize();
